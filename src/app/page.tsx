@@ -73,7 +73,7 @@ function Login() {
   return (
     <div className="w-full h-screen grid grid-cols-2 max-lg:grid-cols-1">
       <div className="p-4">
-        <div className="flex justify-center items-center mt-20">
+        <div className="flex justify-center items-center mt-40">
           <Image
             className=""
             src="/images/loginLogo.svg"
@@ -83,10 +83,10 @@ function Login() {
           />
         </div>
 
-        <div className="max-w-sm mx-auto w-full mt-20">
+        <div className="max-w-sm mx-auto w-full pt-[110px]">
           <h2 className="text-[20px] text-gray-2 ">Sign in to continue</h2>
 
-          <form className="flex flex-col space-y-4 mt-6" onSubmit={handleLogin}>
+          <form className="flex flex-col" onSubmit={handleLogin}>
             <InputComponent
               type="email"
               name="email"
