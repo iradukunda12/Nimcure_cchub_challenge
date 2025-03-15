@@ -191,7 +191,8 @@ const AddPackage = () => {
                 }`}
                 type={"button"}
                 onClick={() => handleStepChange(3)}
-              />
+                              />
+                            
             </div>
           </div>
           <div className="border border-gray-4 -mt-[1.5px] " />
@@ -306,29 +307,35 @@ const AddPackage = () => {
                 />
               ))}
             {currentStep === 3 && (
-              <div className="flex gap-10 items-center justify-center">
+              <div className="flex  gap-10 items-center justify-center">
                 {!afterScanCode ? (
-                  <Generate patient_name={data.patient_name} />
+                                      <Generate patient_name={data.patient_name} />
+                                    
                 ) : (
-                  <div>
+                  <div>Scan successfully</div>
+                )}
+                                  <div className=" w-[250px] py-[70px] flex flex-col justify-between  ">
+                                      <div>
+                                      <p className="py-[5px]">Trouble scanning QR Code?<br></br> Enter manually</p>
+                                      
                     <InputComponent
-                      label="Package Code"
-                      name="Package Code"
+                      
+                                          name="Package Code"
+                                         
                       type="text"
                       placeholder="Enter Package Code"
                       value={qrCodeValue}
                       onChange={setqrCodeValue}
-                    />
-                  </div>
-                )}
-                <CustomButton
-                  type="button"
-                  text={
-                    afterScanCode ? "Click after scan" : "Go back to scan code"
-                  }
-                  customstyle="w-fit h-fit hover:bg-blue-1 hover:text-white"
-                  onClick={handleClickAfterScan}
-                />
+                                      />
+                                          </div>
+                                       <CustomButton
+                text={"Submit Code"}
+                type="button"
+                customstyle="py-3 px-[75px] mt-[42px] bg-blue-2 font-bold hover:bg-blue-1 hover:text-white"
+
+              />
+                                  </div>
+                                 
               </div>
             )}
           </div>
@@ -340,9 +347,9 @@ const AddPackage = () => {
           >
             {currentStep === 3 ? (
               <CustomButton
-                text={"Go Back"}
+                text={"Back"}
                 type="button"
-                customstyle="py-2 px-3 font-bold hover:bg-blue-1 hover:text-white"
+                customstyle="py-2 px-6 font-bold hover:bg-blue-1 hover:text-white"
                 onClick={() => {
                   handleStepChange(2);
                   setafterScanCode(false);
@@ -351,14 +358,15 @@ const AddPackage = () => {
             ) : (
               ""
             )}
-            <CustomButton
+                          <CustomButton
+                            
               text={
                 currentStep === 3 && qrCodeValue == data.hospital_id
                   ? "Add Package"
-                  : "Save Changes"
+                  : "Next"
               }
               type="button"
-              customstyle={`py-2 px-3 font-bold bg-blue-2 hover:bg-blue-1 hover:text-white ${
+              customstyle={`py-2 px-6 font-bold bg-blue-2 hover:bg-blue-1 hover:text-white ${
                 currentStep === 3
                   ? "cursor-not-allowed"
                   : qrCodeValue == data.hospital_id

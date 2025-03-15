@@ -154,7 +154,7 @@ const navLinks = [
     
     className="text-dark font-bold hover:text-gray-900 focus:outline-none"
   >
-                              Adigwe
+                             Emmanuel Adigwe
                               
                           </button>
                           <ChevronDown className=" cursor-pointer w-5 h-5" /> 

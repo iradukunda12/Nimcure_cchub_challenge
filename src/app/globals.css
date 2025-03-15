@@ -4,7 +4,7 @@
 
 @import url("../typography/font.css");
 
-/* .loader {
+.loader {
   width: 45px;
   aspect-ratio: 0.75;
   --c: no-repeat linear-gradient(#1f5af4 0 0);
@@ -60,4 +60,4 @@
   background-color: #e8e8e8;
   border-radius: 8px;
   padding: 1px;
-} */
+}

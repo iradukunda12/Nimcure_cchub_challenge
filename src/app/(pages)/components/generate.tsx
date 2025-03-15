@@ -19,7 +19,8 @@ function Generate({ patient_name }: { patient_name: string }) {
   return (
     <div className="grid place-content-center p-5">
       <h2 className="mb-10 -ml-9">{` Scan a package to assign it to ${patient_name}`}</h2>
-      {qrCodeValue && <QRCode value={hospitId} width={40} />}
+          {qrCodeValue && <QRCode value={hospitId} width={40}  />}
+          
     </div>
   );
 }
