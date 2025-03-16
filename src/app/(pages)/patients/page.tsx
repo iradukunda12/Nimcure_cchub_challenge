@@ -19,7 +19,7 @@ function Patients() {
   const [size, setSize] = useState<number | null>(null);
   const [search, setSearch] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [sortBy, setSortBy] = useState<string>("hospital_id"); // Default sort by hospital_id
+  const [sortBy, setSortBy] = useState<string>("hospital_id"); 
   const [sortOrder, setSortOrder] = useState<string>("asc");
 
 useEffect(() => {
