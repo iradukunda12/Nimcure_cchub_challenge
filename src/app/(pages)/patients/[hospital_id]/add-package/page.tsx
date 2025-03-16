@@ -12,7 +12,7 @@ import { DeliveryProps, DrugRoutineState } from "@/types/delivery";
 import { DispatchRiderCardProps } from "@/types/dispatch-rider";
 import { Patient } from "@/types/patient";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 
 
@@ -27,7 +27,7 @@ const AddPackage = () => {
     step2: "wait",
     step3: "wait",
   });
-  const [, setRidersInfo] = useState<DispatchRiderCardProps[]>([]);
+  const [ridersInfo , setRidersInfo] = useState<DispatchRiderCardProps[]>([]);
   const [afterScanCode, setafterScanCode] = useState<boolean>(false);
   const [qrCodeValue, setqrCodeValue] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -42,15 +42,17 @@ const AddPackage = () => {
   });
   const [selectedOption, setSelectedOption] = useState<"same" | "new" | null>(
     null
-  ); // Track selected option
-
-//   const handleClickAfterScan = () => {
-//     setafterScanCode(!afterScanCode);
-//   };
+  ); 
+  const handleQrCodeChange = (value: SetStateAction<string>) => {
+    setqrCodeValue(value);
+  };
+  const handleClickAfterScan = () => {
+    setafterScanCode(!afterScanCode);
+  };
 
   // Function to handle option selection
   const handleOptionSelect = (option: "same" | "new") => {
-    setSelectedOption(option); // Set selected option
+    setSelectedOption(option); 
   };
 //   const selectDrugs = (routine: string) => {
 //     selectedRiders[`step${currentStep}`] === routine;
@@ -291,54 +293,56 @@ const AddPackage = () => {
                 </div>
               </div>
             )}
-            {dispatchRiderData &&
-              currentStep === 2 &&
-              dispatchRiderData.map((data) => (
-                <DispatchRiderCard
-                  key={data.dispatch_rider_name}
-                  dispatch_rider_name={data.dispatch_rider_name}
-                  delivery_area={data.delivery_area}
-                  number_of_delivery={data.number_of_delivery}
-                  selected={
-                    selectedRiders[`step${currentStep}`] ===
-                    data.dispatch_rider_name
-                  }
-                  onSelect={handleSelectRider}
-                />
-              ))}
-            {currentStep === 3 && (
-              <div className="flex  gap-10 items-center justify-center">
-                {!afterScanCode ? (
-                                      <Generate patient_name={data.patient_name} />
-                                    
-                ) : (
-                  <div>Scan successfully</div>
-                )}
-                                  <div className=" w-[250px] py-[70px] flex flex-col justify-between  ">
-                                      <div>
-                                      <p className="py-[5px]">Trouble scanning QR Code?<br></br> Enter manually</p>
-                                      
-                    <InputComponent
-                      
-                                          name="Package Code"
-                                         
-                      type="text"
-                      placeholder="Enter Package Code"
-                      value={qrCodeValue}
-                      onChange={setqrCodeValue}
-                                      />
-                                          </div>
-                                       <CustomButton
-                text={"Submit Code"}
-                type="button"
-                customstyle="py-3 px-[75px] mt-[42px] bg-blue-2 font-bold hover:bg-blue-1 hover:text-white"
-
+             {dispatchRiderData &&
+        currentStep === 2 &&
+        dispatchRiderData.map((data) => (
+          <DispatchRiderCard
+            key={data.dispatch_rider_name}
+            dispatch_rider_name={data.dispatch_rider_name}
+            delivery_area={data.delivery_area}
+            number_of_delivery={data.number_of_delivery}
+            selected={
+              selectedRiders[`step${currentStep}`] ===
+              data.dispatch_rider_name
+            }
+            onSelect={handleSelectRider}
+          />
+        ))}
+      
+      {/* Step 3 - QR Code and Manual Input */}
+      {currentStep === 3 && (
+        <div className="flex gap-10 items-center justify-center">
+          {!afterScanCode ? (
+            <Generate patient_name={data?.patient_name} />
+          ) : (
+           ""
+          )}
+          
+          <div className="w-[250px] py-[70px] flex flex-col justify-between">
+            <div>
+              <p className="py-[5px]">
+                Trouble scanning QR Code?<br></br> Enter manually
+              </p>
+              
+              <InputComponent
+                name="manual_package_code"
+                type="text"
+                placeholder="Enter Package Code"
+                value={qrCodeValue}
+                onChange={handleQrCodeChange}
               />
-                                  </div>
-                                 
-              </div>
-            )}
+            </div>
+            
+            <CustomButton
+              text={"Submit Code"}
+              type="button"
+              customstyle="py-3 px-[75px] mt-[42px] bg-blue-2 font-bold hover:bg-blue-1 hover:text-white"
+              onClick={handleClickAfterScan}
+            />
           </div>
+        </div>
+      )}
+    </div>
 
           <div
             className={`flex ${
@@ -358,29 +362,26 @@ const AddPackage = () => {
             ) : (
               ""
             )}
-                          <CustomButton
-                            
-              text={
-                currentStep === 3 && qrCodeValue == data.hospital_id
-                  ? "Add Package"
-                  : "Next"
-              }
-              type="button"
-              customstyle={`py-2 px-6 font-bold bg-blue-2 hover:bg-blue-1 hover:text-white ${
-                currentStep === 3
-                  ? "cursor-not-allowed"
-                  : qrCodeValue == data.hospital_id
-                  ? "cursor-allowed"
-                  : ""
-              } `}
-              onClick={() => {
-                if (qrCodeValue === data.hospital_id) {
-                  setIsDialogOpen(true);
-                } else {
-                  currentStep === 1 ? handleStepChange(2) : handleStepChange(3);
-                }
-              }}
-            />
+                  <CustomButton
+        text={
+          currentStep === 3 && qrCodeValue === data.hospital_id
+            ? "Assign Package"
+            : "Next"
+        }
+        type="button"
+        customstyle={`py-2 px-6 font-bold bg-blue-2 hover:bg-blue-1 hover:text-white ${
+          currentStep === 3 && qrCodeValue === data.hospital_id
+            ? "cursor-pointer"
+            : "cursor-not-allowed"
+        }`}
+        onClick={() => {
+          if (currentStep === 3 && qrCodeValue === data.hospital_id) {
+            setIsDialogOpen(true); 
+          } else {
+            handleStepChange(currentStep === 1 ? 2 : 3);
+          }
+        }}
+      />
           </div>
         </div>
       </div>
