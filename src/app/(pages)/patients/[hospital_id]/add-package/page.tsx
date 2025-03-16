@@ -27,7 +27,7 @@ const AddPackage = () => {
     step2: "wait",
     step3: "wait",
   });
-  const [ridersInfo, setRidersInfo] = useState<DispatchRiderCardProps[]>([]);
+  const [, setRidersInfo] = useState<DispatchRiderCardProps[]>([]);
   const [afterScanCode, setafterScanCode] = useState<boolean>(false);
   const [qrCodeValue, setqrCodeValue] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -44,19 +44,19 @@ const AddPackage = () => {
     null
   ); // Track selected option
 
-  const handleClickAfterScan = () => {
-    setafterScanCode(!afterScanCode);
-  };
+//   const handleClickAfterScan = () => {
+//     setafterScanCode(!afterScanCode);
+//   };
 
   // Function to handle option selection
   const handleOptionSelect = (option: "same" | "new") => {
     setSelectedOption(option); // Set selected option
   };
-  const selectDrugs = (routine: string) => {
-    selectedRiders[`step${currentStep}`] === routine;
-    handleOptionSelect(routine as DrugRoutineState);
-    handleSelectRider(routine);
-  };
+//   const selectDrugs = (routine: string) => {
+//     selectedRiders[`step${currentStep}`] === routine;
+//     handleOptionSelect(routine as DrugRoutineState);
+//     handleSelectRider(routine);
+//   };
 
   useEffect(() => {
     if (hospital_id) {

@@ -1,10 +1,11 @@
+"use client";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 
 function Generate({ patient_name }: { patient_name: string }) {
   const { hospital_id } = useParams();
-  const [qrCodeValue, setQrCodeValue] = useState("Kevin");
+  const [qrCodeValue] = useState("Kevin");
   const [hospitId, setHospitId] = useState<string>("");
 
   useEffect(() => {

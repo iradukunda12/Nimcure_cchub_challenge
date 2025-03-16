@@ -2,9 +2,6 @@ import { DispatchRiderCardProps } from "@/types/dispatch-rider";
 import Image from "next/image";
 import React from "react";
 
-type StepProps = {
-  step: 1 | 2 | 3;
-};
 
 
 function DispatchRiderCard({
@@ -13,7 +10,6 @@ function DispatchRiderCard({
   number_of_delivery,
   selected,
   onSelect,
-  step,
 }: DispatchRiderCardProps) {
   return (
     <div
